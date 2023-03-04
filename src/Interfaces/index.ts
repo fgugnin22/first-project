@@ -64,7 +64,6 @@ interface HomePageState {
   inputSearchString: string;
   dropdown: boolean;
   cocktail: Drink | {};
-  ingredients: {};
 }
 
 export type { Drink, HomePageState, action, CocktailCardProps };

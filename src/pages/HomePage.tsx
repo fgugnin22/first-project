@@ -8,13 +8,11 @@ const HOME_PAGE_ACTIONS = {
   SET_COCKTAIL: "set-new-cocktail",
   SET_INPUT_STRING: "set-input-string",
   TOGGLE_DROPDOWN: "toggle-dropdown",
-  SET_INGREDIENTS: "set-ingredients",
 };
 const defaultHomePageState: HomePageState = {
   inputSearchString: "",
   dropdown: true,
   cocktail: {},
-  ingredients: {},
 };
 
 const HomePageReducer = (state: HomePageState, action: action) => {
@@ -25,8 +23,6 @@ const HomePageReducer = (state: HomePageState, action: action) => {
       return { ...state, inputSearchString: action.payload };
     case HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN:
       return { ...state, dropdown: action.payload };
-    case HOME_PAGE_ACTIONS.SET_INGREDIENTS:
-      return { ...state, ingredients: action.payload };
     default:
       return { ...state };
   }
