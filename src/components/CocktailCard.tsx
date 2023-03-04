@@ -1,13 +1,13 @@
-import { CocktailCardProps } from "../Interfaces";
+import { CocktailCardProps, Drink } from "../Interfaces";
 import { useAppSelector } from "../hooks/useAppSelector";
 import React, { useState } from "react";
 import { actions } from "../store/rootSlice";
-import { Transition } from "react-transition-group";
 import { useDispatch } from "react-redux";
 import { CheckIsFav } from "../UglyFunctions/CheckIsFav";
+import { GetIngredients } from "../UglyFunctions/GetIngredients";
 export const CocktailCard = (props: CocktailCardProps) => {
   const dispatch = useDispatch();
-
+  const ingredients = GetIngredients(props.cocktail);
   const { favoriteDrinks: favorites } = useAppSelector(
     (state) => state.rootReducer
   );
@@ -35,12 +35,14 @@ export const CocktailCard = (props: CocktailCardProps) => {
         {props.cocktail.strDrink}
       </span>
       <ol className="">
-        {props.ingredients.map((ingredient, index: number) => {
+        {Object.keys(ingredients).map((ingredient: any, index) => {
           return (
-            <span className="block" key={index}>
-              <span className="font-semibold">{ingredient}</span>
-              {props.proportions[index] && ": " + props.proportions[index]}
-            </span>
+            <li key={index}>
+              <span className="block">
+                <span className="font-semibold">{ingredient}</span>
+                {ingredients[ingredient] && ": " + ingredients[ingredient]}
+              </span>
+            </li>
           );
         })}
       </ol>

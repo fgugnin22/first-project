@@ -59,8 +59,6 @@ interface action {
 interface CocktailCardProps {
   cocktail: Drink;
   style?: any;
-  proportions: string[];
-  ingredients: string[];
 }
 interface HomePageState {
   inputSearchString: string;

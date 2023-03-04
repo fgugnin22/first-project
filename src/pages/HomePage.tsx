@@ -4,7 +4,6 @@ import CocktailCard from "../components/CocktailCard";
 import { useSearchDelay } from "../hooks/useSearchDelay";
 import { useSearchCocktailsByNameQuery } from "../store/cocktailAPI/cocktail.api";
 import { Drink, HomePageState, action } from "../Interfaces/index";
-import { GetIngredients } from "../UglyFunctions/GetIngredients";
 const HOME_PAGE_ACTIONS = {
   SET_COCKTAIL: "set-new-cocktail",
   SET_INPUT_STRING: "set-input-string",
@@ -48,8 +47,6 @@ const HomePage = () => {
     refetchOnFocus: true,
   });
   const dropdownClickHandler = (cocktail: Drink) => {
-    const ingredients: Object = GetIngredients(cocktail);
-    dispatch({ type: HOME_PAGE_ACTIONS.SET_INGREDIENTS, payload: ingredients });
     dispatch({ type: HOME_PAGE_ACTIONS.SET_COCKTAIL, payload: cocktail });
   };
   useEffect(() => {
@@ -130,12 +127,7 @@ const HomePage = () => {
         )}
       </div>
       {Object.keys(state.cocktail).length > 0 && (
-        <CocktailCard
-          key={state.cocktail.idDrink}
-          cocktail={state.cocktail}
-          proportions={Object.values(state.ingredients)}
-          ingredients={Object.keys(state.ingredients)}
-        />
+        <CocktailCard key={state.cocktail.idDrink} cocktail={state.cocktail} />
       )}
     </div>
   );
