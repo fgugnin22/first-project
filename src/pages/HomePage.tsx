@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from "react";
-import { useTransition, animated } from "react-spring";
 import CocktailCard from "../components/CocktailCard";
 import { useSearchDelay } from "../hooks/useSearchDelay";
 import { useSearchCocktailsByNameQuery } from "../store/cocktailAPI/cocktail.api";
