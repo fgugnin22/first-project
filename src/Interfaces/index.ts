@@ -68,7 +68,10 @@ interface HomePageState {
 interface DropdownProps<T> {
   onClick: (arg0: T) => void;
   isLoading: boolean;
-  items: Drink[];
+  items: Drink[] | undefined;
   isVisible: boolean;
 }
-export type { Drink, HomePageState, action, CocktailCardProps, DropdownProps };
+interface ServerResponse<T> {
+  drinks: T
+}
+export type { Drink, HomePageState, action, CocktailCardProps, DropdownProps, ServerResponse };

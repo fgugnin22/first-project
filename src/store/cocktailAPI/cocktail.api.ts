@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {Drink} from "../../Interfaces/index"
+import {Drink, ServerResponse} from "../../Interfaces/index"
 export const cocktailApi = createApi({
   reducerPath: "cocktail/api",
   baseQuery: fetchBaseQuery({
@@ -7,17 +7,16 @@ export const cocktailApi = createApi({
   }),
   refetchOnFocus: true,
   endpoints: (build) => ({
-    searchCocktailsByName: build.query({
+    searchCocktailsByName: build.query<Drink[], string>({
       query: (search: string) => ({
         url: `search.php`,
         params: {
           s: search,
-          // per page: 10,
         },
       }),
-      // transformResponse: ...
+      transformResponse: (response: ServerResponse<Drink[]>) => {
+        return response.drinks}
     }),
-    // здесь что то еще будет
   }),
 });
 export const { useSearchCocktailsByNameQuery } = cocktailApi;

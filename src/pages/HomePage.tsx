@@ -49,21 +49,15 @@ const HomePage = () => {
   useEffect(() => {
     dispatch({
       type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-      payload: delayedSearch.length > 1 && cocktailsByName?.drinks?.length! > 0,
+      payload: delayedSearch.length > 1 && cocktailsByName?.length! > 0,
     });
   }, [delayedSearch, cocktailsByName]);
-  const transition = useTransition(state.dropdown, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  });
 
   return (
     <div className="pt-10 mx-auto h-screen w-screen">
       {isError && (
         <p className="text-center text-red-600">Брух умер от кринжа</p>
       )}
-
       <div
         className="relative w-screen"
         onMouseLeave={() =>
@@ -95,7 +89,7 @@ const HomePage = () => {
         <Dropdown
           onClick={dropdownClickHandler}
           isLoading={isLoading || isFetching}
-          items={cocktailsByName?.drinks}
+          items={cocktailsByName}
           isVisible={state.dropdown}
         ></Dropdown>
       </div>
