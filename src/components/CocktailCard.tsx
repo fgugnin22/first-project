@@ -29,7 +29,7 @@ export const CocktailCard = (props: CocktailCardProps) => {
   };
 
   return (
-    <div className="border my-2 text-center h-auto w-96 overflow-hidden py-3 px-5 rounded mb-2 hover:shadow-md hover:bg-gray-100 transition-all">
+    <div className="flex flex-col border my-2 text-center h-auto w-96 py-3 px-5 rounded mb-2 hover:shadow-md duration-1000 hover:bg-gray-100 transition-all">
       <img className="max-h-96 pb-[5px]" src={props.cocktail.strDrinkThumb} />
       <span className="text-2xl font-sans font-semibold">
         {props.cocktail.strDrink}
@@ -46,14 +46,14 @@ export const CocktailCard = (props: CocktailCardProps) => {
           );
         })}
       </ol>
-      <span className="text-left text-sm">
+      <span className="text-left flex-1 text-sm">
         {props.cocktail.strInstructions}
       </span>
       {
         <button
-          className={`py-2 px-4 ${
+          className={`py-2 bottom-10 my-auto block mx-auto px-4 ${
             isFav ? "bg-rose-600" : "bg-cyan-400"
-          } rounded hover:shadow-md transition-all`}
+          } rounded hover:shadow-md`}
           onClick={isFav ? removeFromFav : addFav}
         >
           {isFav ? "Удалить из избранного" : "Добавить в избранное"}
