@@ -4,6 +4,7 @@ import CocktailCard from "../components/CocktailCard";
 import { useSearchDelay } from "../hooks/useSearchDelay";
 import { useSearchCocktailsByNameQuery } from "../store/cocktailAPI/cocktail.api";
 import { Drink, HomePageState, action } from "../Interfaces/index";
+import Dropdown from "../components/Dropdown";
 const HOME_PAGE_ACTIONS = {
   SET_COCKTAIL: "set-new-cocktail",
   SET_INPUT_STRING: "set-input-string",
@@ -63,17 +64,22 @@ const HomePage = () => {
         <p className="text-center text-red-600">Брух умер от кринжа</p>
       )}
 
-      <div className="relative w-screen">
+      <div
+        className="relative w-screen"
+        onMouseLeave={() =>
+          dispatch({
+            type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
+            payload: false,
+          })
+        }
+        onMouseEnter={() =>
+          dispatch({
+            type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
+            payload: true,
+          })
+        }
+      >
         <input
-          onMouseLeave={() =>
-            dispatch({
-              type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-              payload: false,
-            })
-          }
-          onMouseEnter={() =>
-            dispatch({ type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN, payload: true })
-          }
           type="text"
           className="border py-2 px-4 w-full h-[42px] mb-2"
           placeholder="Напиткогугл"
@@ -86,41 +92,12 @@ const HomePage = () => {
           }
         />
         {/* {animated dropdown with react-spring} */}
-        {transition((style, item) =>
-          item ? (
-            <animated.ul
-              style={style}
-              onMouseLeave={() =>
-                dispatch({
-                  type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-                  payload: false,
-                })
-              }
-              onMouseEnter={() =>
-                dispatch({
-                  type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-                  payload: true,
-                })
-              }
-              className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white"
-            >
-              {(isLoading || isFetching) && (
-                <p className="text-center">Загрузочка...</p>
-              )}
-              {cocktailsByName?.drinks?.map((cocktail: Drink) => (
-                <li
-                  key={cocktail.idDrink}
-                  onClick={() => dropdownClickHandler(cocktail)}
-                  className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer"
-                >
-                  {cocktail.strDrink}
-                </li>
-              ))}
-            </animated.ul>
-          ) : (
-            ""
-          )
-        )}
+        <Dropdown
+          onClick={dropdownClickHandler}
+          isLoading={isLoading || isFetching}
+          items={cocktailsByName?.drinks}
+          isVisible={state.dropdown}
+        ></Dropdown>
       </div>
       {Object.keys(state.cocktail).length > 0 && (
         <CocktailCard key={state.cocktail.idDrink} cocktail={state.cocktail} />

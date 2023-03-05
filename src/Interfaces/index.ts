@@ -65,5 +65,10 @@ interface HomePageState {
   dropdown: boolean;
   cocktail: Drink | {};
 }
-
-export type { Drink, HomePageState, action, CocktailCardProps };
+interface DropdownProps<T> {
+  onClick: (arg0: T) => void;
+  isLoading: boolean;
+  items: Drink[];
+  isVisible: boolean;
+}
+export type { Drink, HomePageState, action, CocktailCardProps, DropdownProps };
