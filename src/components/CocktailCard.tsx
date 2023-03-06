@@ -51,8 +51,8 @@ export const CocktailCard = (props: CocktailCardProps) => {
       </span>
       {
         <button
-          className={`py-2 bottom-10 my-auto block mx-auto px-4 ${
-            isFav ? "bg-rose-600" : "bg-cyan-400"
+          className={`btn mx-auto w-[100%] ${
+            isFav ? "btn-secondary" : "btn-primary"
           } rounded hover:shadow-md`}
           onClick={isFav ? removeFromFav : addFav}
         >

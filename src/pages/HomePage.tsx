@@ -11,7 +11,7 @@ const HOME_PAGE_ACTIONS = {
 };
 const defaultHomePageState: HomePageState = {
   inputSearchString: "",
-  dropdown: true,
+  dropdown: false,
   cocktail: {},
 };
 
@@ -39,7 +39,7 @@ const HomePage = () => {
     isFetching,
     data: cocktailsByName,
   } = useSearchCocktailsByNameQuery(delayedSearch, {
-    skip: delayedSearch.length < 1,
+    skip: delayedSearch.length < 3,
     refetchOnFocus: true,
   });
   const dropdownClickHandler = (cocktail: Drink) => {
@@ -48,7 +48,7 @@ const HomePage = () => {
   useEffect(() => {
     dispatch({
       type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-      payload: delayedSearch.length > 1 && cocktailsByName?.length! > 0,
+      payload: delayedSearch.length > 2 && cocktailsByName?.length! > 0,
     });
   }, [delayedSearch, cocktailsByName]);
 
@@ -57,24 +57,10 @@ const HomePage = () => {
       {isError && (
         <p className="text-center text-red-600">Брух умер от кринжа</p>
       )}
-      <div
-        className="relative w-screen"
-        onMouseLeave={() =>
-          dispatch({
-            type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-            payload: false,
-          })
-        }
-        onMouseEnter={() =>
-          dispatch({
-            type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
-            payload: true,
-          })
-        }
-      >
+      <div className="relative w-[calc(100%-18px)] dropdown dropdown-hover">
         <input
           type="text"
-          className="border py-2 px-4 w-full h-[42px] mb-2"
+          className="input rounded-none focus:outline-none input-bordered w-full overflow-hidden"
           placeholder="Напиткогугл"
           value={state.inputSearchString}
           onChange={(e) =>
@@ -84,13 +70,16 @@ const HomePage = () => {
             })
           }
         />
-        {/* {animated dropdown with react-spring} */}
-        <Dropdown
-          onClick={dropdownClickHandler}
-          isLoading={isLoading || isFetching}
-          items={cocktailsByName}
-          isVisible={state.dropdown}
-        ></Dropdown>
+        {state.dropdown ? (
+          <Dropdown
+            onClick={dropdownClickHandler}
+            isLoading={isLoading || isFetching}
+            items={cocktailsByName}
+            isVisible={state.dropdown}
+          ></Dropdown>
+        ) : (
+          ""
+        )}
       </div>
       {Object.keys(state.cocktail).length > 0 && (
         <CocktailCard key={state.cocktail.idDrink} cocktail={state.cocktail} />

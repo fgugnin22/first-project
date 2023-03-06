@@ -1,36 +1,18 @@
 import { Drink, DropdownProps } from "../Interfaces";
-import { useTransition, animated } from "react-spring";
-
 const Dropdown = (props: DropdownProps<Drink>) => {
-  const transition = useTransition(props.isVisible, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  });
   return (
-    <>
-      {transition((style, item) => {
-        return item ? (
-          <animated.ul
-            style={style}
-            className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white"
-          >
-            {props.isLoading && <p className="text-center">Загрузочка...</p>}
-            {props.items?.map((item: Drink) => (
-              <li
-                key={item.idDrink}
-                onClick={() => props.onClick(item)}
-                className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer"
-              >
-                {item.strDrink}
-              </li>
-            ))}
-          </animated.ul>
-        ) : (
-          ""
-        );
-      })}
-    </>
+    <ul className="dropdown-content rounded-none overflow-y-scroll max-h-48 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-200 shadow bg-base-100 w-[100%]">
+      {props.isLoading && <p className="text-center">Загрузочка...</p>}
+      {props.items?.map((item: Drink) => (
+        <li
+          className="py-2  px-2 hover:bg-slate-500"
+          key={item.idDrink}
+          onClick={() => props.onClick(item)}
+        >
+          {item.strDrink}
+        </li>
+      ))}
+    </ul>
   );
 };
 
