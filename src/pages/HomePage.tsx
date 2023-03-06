@@ -53,7 +53,7 @@ const HomePage = () => {
   }, [delayedSearch, cocktailsByName]);
 
   return (
-    <div className="pt-10 mx-auto h-screen w-screen">
+    <div className="pt-10 h-screen w-screen">
       {isError && (
         <p className="text-center text-red-600">Брух умер от кринжа</p>
       )}
@@ -81,9 +81,14 @@ const HomePage = () => {
           ""
         )}
       </div>
-      {Object.keys(state.cocktail).length > 0 && (
-        <CocktailCard key={state.cocktail.idDrink} cocktail={state.cocktail} />
-      )}
+      <div className="flex justify-center">
+        {Object.keys(state.cocktail).length > 0 && (
+          <CocktailCard
+            key={state.cocktail.idDrink}
+            cocktail={state.cocktail}
+          />
+        )}
+      </div>
     </div>
   );
 };

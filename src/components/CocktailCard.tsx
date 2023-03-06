@@ -29,36 +29,38 @@ export const CocktailCard = (props: CocktailCardProps) => {
   };
 
   return (
-    <div className="flex flex-col border my-2 text-center h-auto w-96 py-3 px-5 rounded mb-2 hover:shadow-md duration-1000 hover:bg-gray-100 transition-all">
-      <img className="max-h-96 pb-[5px]" src={props.cocktail.strDrinkThumb} />
-      <span className="text-2xl font-sans font-semibold">
-        {props.cocktail.strDrink}
-      </span>
-      <ol className="">
-        {Object.keys(ingredients).map((ingredient: any, index) => {
-          return (
-            <li key={index}>
-              <span className="block">
-                <span className="font-semibold">{ingredient}</span>
-                {ingredients[ingredient] && ": " + ingredients[ingredient]}
-              </span>
-            </li>
-          );
-        })}
-      </ol>
-      <span className="text-left flex-1 text-sm">
-        {props.cocktail.strInstructions}
-      </span>
-      {
-        <button
-          className={`btn mx-auto w-[100%] ${
-            isFav ? "btn-secondary" : "btn-primary"
-          } rounded hover:shadow-md`}
-          onClick={isFav ? removeFromFav : addFav}
-        >
-          {isFav ? "Удалить из избранного" : "Добавить в избранное"}
-        </button>
-      }
+    <div className="card my-10 w-96 rounded-3xl bg-base-100 shadow-xl">
+      <img className="max-h-96 pb-[5px] rounded-t-3xl" src={props.cocktail.strDrinkThumb} />
+      <div className="card-body">
+        <span className="card-title">{props.cocktail.strDrink}</span>
+        <ol className="">
+          {Object.keys(ingredients).map((ingredient: any, index) => {
+            return (
+              <li key={index}>
+                <span className="block">
+                  <span className="font-semibold">{ingredient}</span>
+                  {ingredients[ingredient] && ": " + ingredients[ingredient]}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+        <span className="text-left flex-1 text-sm">
+          {props.cocktail.strInstructions}
+        </span>
+        <div className="card-actions">
+          {
+            <button
+              className={`btn mx-auto w-[100%] ${
+                isFav ? "btn bg-rose-600 hover:bg-rose-700" : "btn bg-green-700 hover:bg-green-900"
+              } rounded hover:shadow-md`}
+              onClick={isFav ? removeFromFav : addFav}
+            >
+              {isFav ? "Remove from favorites" : "Add to favorites"}
+            </button>
+          }
+        </div>
+      </div>
     </div>
   );
 };
