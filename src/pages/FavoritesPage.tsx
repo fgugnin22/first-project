@@ -1,22 +1,7 @@
-import { CocktailCard } from "../components/CocktailCard";
-import { useAppSelector } from "../hooks/useAppSelector";
-import { Drink } from "../Interfaces/index";
+import CocktalCardList from "../components/CocktalCardList";
 
 const FavoritesPage = () => {
-  const { favoriteDrinks: favorites } = useAppSelector(
-    (state) => state.rootReducer
-  );
-
-  return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 grid-flow-row justify-items-center">
-      {favorites &&
-        favorites.map((drink: Drink) => {
-          return (
-            <CocktailCard key={drink.idDrink} cocktail={drink}></CocktailCard>
-          );
-        })}
-    </div>
-  );
+    return <CocktalCardList />;
 };
 
 export default FavoritesPage;

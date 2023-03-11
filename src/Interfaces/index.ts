@@ -60,13 +60,16 @@ interface CocktailCardProps {
     cocktail: Drink;
     style?: any;
 }
+interface dispatch {
+    dispatch: (action: action) => void;
+}
 interface HomePageState {
     inputSearchString: string;
     dropdown: boolean;
     cocktail: Drink | {};
 }
-interface DropdownProps<T> {
-    onClick: (arg0: T) => void;
+interface DropdownProps {
+    dispatch: (action: action) => void;
     isLoading: boolean;
     items: Drink[] | undefined;
 }
@@ -74,6 +77,7 @@ interface ServerResponse<T> {
     drinks: T;
 }
 export type {
+    dispatch,
     Drink,
     HomePageState,
     action,

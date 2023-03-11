@@ -5,7 +5,7 @@ import { useSearchDelay } from "../hooks/useSearchDelay";
 import { useSearchCocktailsByNameQuery } from "../store/cocktailAPI/cocktail.api";
 import { Drink, HomePageState, action } from "../Interfaces/index";
 import Dropdown from "../components/Dropdown";
-const defaultHomePageState: HomePageState = {
+const defaultHomePageState = {
     inputSearchString: "",
     dropdown: false,
     cocktail: {},
@@ -16,7 +16,10 @@ export const HOME_PAGE_ACTIONS = {
     TOGGLE_DROPDOWN: "toggle-dropdown",
 };
 
-const HomePageReducer = (state: HomePageState, action: action) => {
+const HomePageReducer = (
+    state: typeof defaultHomePageState,
+    action: action
+) => {
     switch (action.type) {
         case HOME_PAGE_ACTIONS.SET_COCKTAIL:
             return { ...state, cocktail: action.payload };
@@ -43,9 +46,9 @@ const HomePage = () => {
         skip: delayedSearch.length < 3,
         refetchOnFocus: true,
     });
-    const dropdownClickHandler = (cocktail: Drink) => {
-        dispatch({ type: HOME_PAGE_ACTIONS.SET_COCKTAIL, payload: cocktail });
-    };
+    // const dropdownClickHandler = (cocktail: Drink) => {
+    //
+    // };
     useEffect(() => {
         dispatch({
             type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
@@ -62,7 +65,7 @@ const HomePage = () => {
                 <SearchBar dispatch={dispatch} />
                 {state.dropdown ? (
                     <Dropdown
-                        onClick={dropdownClickHandler}
+                        dispatch={dispatch}
                         isLoading={isLoading || isFetching}
                         items={cocktailsByName}
                     ></Dropdown>

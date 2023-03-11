@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HOME_PAGE_ACTIONS } from "../pages/HomePage";
-
-export function SearchBar({ dispatch }) {
+import { dispatch } from "../Interfaces/index";
+export function SearchBar({ dispatch }: dispatch) {
     const [search, setSearch] = useState("");
 
     return (
