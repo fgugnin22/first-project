@@ -3,7 +3,7 @@ import { useEffect, useReducer } from "react";
 import CocktailCard from "../components/CocktailCard";
 import { useSearchDelay } from "../hooks/useSearchDelay";
 import { useSearchCocktailsByNameQuery } from "../store/cocktailAPI/cocktail.api";
-import { Drink, HomePageState, action } from "../Interfaces/index";
+import { action } from "../Interfaces/index";
 import Dropdown from "../components/Dropdown";
 const defaultHomePageState = {
     inputSearchString: "",
@@ -15,7 +15,6 @@ export const HOME_PAGE_ACTIONS = {
     SET_INPUT_STRING: "set-input-string",
     TOGGLE_DROPDOWN: "toggle-dropdown",
 };
-
 const HomePageReducer = (
     state: typeof defaultHomePageState,
     action: action
@@ -46,9 +45,6 @@ const HomePage = () => {
         skip: delayedSearch.length < 3,
         refetchOnFocus: true,
     });
-    // const dropdownClickHandler = (cocktail: Drink) => {
-    //
-    // };
     useEffect(() => {
         dispatch({
             type: HOME_PAGE_ACTIONS.TOGGLE_DROPDOWN,
@@ -57,21 +53,18 @@ const HomePage = () => {
     }, [delayedSearch, cocktailsByName]);
 
     return (
-        <div className="pt-10 h-screen w-screen">
+        <div className="pt-10 h-[100%] w-screen">
             {isError && (
                 <p className="text-center text-red-600">Брух умер от кринжа</p>
             )}
             <div className="relative w-[calc(100%-18px)] dropdown dropdown-hover">
                 <SearchBar dispatch={dispatch} />
-                {state.dropdown ? (
-                    <Dropdown
-                        dispatch={dispatch}
-                        isLoading={isLoading || isFetching}
-                        items={cocktailsByName}
-                    ></Dropdown>
-                ) : (
-                    ""
-                )}
+                <Dropdown
+                    isVisible={state.dropdown}
+                    dispatch={dispatch}
+                    isLoading={isLoading || isFetching}
+                    items={cocktailsByName}
+                ></Dropdown>
             </div>
             <div className="flex justify-center">
                 {Object.keys(state.cocktail).length > 0 && (

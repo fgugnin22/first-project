@@ -71,6 +71,7 @@ interface HomePageState {
 interface DropdownProps {
     dispatch: (action: action) => void;
     isLoading: boolean;
+    isVisible: boolean;
     items: Drink[] | undefined;
 }
 interface ServerResponse<T> {

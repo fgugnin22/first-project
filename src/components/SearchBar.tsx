@@ -7,7 +7,7 @@ export function SearchBar({ dispatch }: dispatch) {
     return (
         <input
             type="text"
-            className="input rounded-none focus:outline-none input-bordered w-full overflow-hidden"
+            className="input rounded-none focus:outline-none input-bordered w-screen overflow-hidden"
             placeholder="Напиткогугл"
             value={search}
             onChange={(e) => {
