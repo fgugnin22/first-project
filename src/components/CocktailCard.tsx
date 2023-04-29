@@ -59,7 +59,7 @@ export const CocktailCard = (props: CocktailCardProps) => {
                         <button
                             className={`btn mx-auto w-[100%] ${
                                 isFav
-                                    ? "btn bg-rose-600 hover:bg-rose-700"
+                                    ? "btn bg-red-600 hover:bg-red-700"
                                     : "btn bg-green-700 hover:bg-green-900"
                             } rounded hover:shadow-md`}
                             onClick={isFav ? removeFromFav : addFav}

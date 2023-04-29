@@ -57,7 +57,7 @@ const HomePage = () => {
             {isError && (
                 <p className="text-center text-red-600">Брух умер от кринжа</p>
             )}
-            <div className="relative w-[calc(100%-18px)] dropdown dropdown-hover">
+            <div className="relative w-[calc(100%-18px)]  dropdown dropdown-hover">
                 <SearchBar dispatch={dispatch} />
                 <Dropdown
                     isVisible={state.dropdown}
